@@ -1,0 +1,31 @@
+% TODOS
+
+\makeatletter
+\AtEndDocument
+{%
+	\immediate\write\@auxout
+	{\gdef\noexpand\totaltodos{\the\value{@todonotes@numberoftodonotes}}}%
+}
+\newcommand*\iftodos
+{%
+	\@ifundefined{totaltodos}
+	{}
+	{%
+		\ifnum\totaltodos>0
+		\expandafter\@secondoftwo
+		\fi
+		\@gobble
+	}%
+}
+\@ifundefined{totaltodos}{\def\totaltodos{0}}{}
+\makeatother
+
+% Nested lists
+\renewcommand{\labelenumii}{\theenumii}
+\renewcommand{\theenumii}{\theenumi.\arabic{enumii}.}
+
+% Some weird bug with some package
+\renewcommand{\familydefault}{\sfdefault}
+
+% Add sources line to figures
+\newcommand{\source}[1]{\caption*{Source: {#1}} }
